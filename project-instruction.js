@@ -10,3 +10,22 @@
 // express-validator v6 gives this issue TypeError: expressValidator is not a function so replace in package.json "express-validator": "^5.3.1", and then run npm install then npm start
 // install jwt to create signin token >> npm i express-jwt jsonwebtoken
 // npm i cors is installed and required in the app.js to make sure we don't receive the cross origin errors
+
+
+    location /api {
+        proxy_pass http://localhost:8000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+        location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
