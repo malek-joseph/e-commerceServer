@@ -21,8 +21,8 @@ exports.userById = (req, res, next, id) => {
     //   req.profile = user;
     //   next();
     // });
-  User.findById(id, function (err, user) {
-    if (err || !user) {
+  User.findById(id, function (error, user) {
+    if (error || !user) {
       console.log('hello');
       return res.status(400).json({
         error: "Error happened while searching for the user",
@@ -48,8 +48,8 @@ exports.update = (req, res) => {
     { _id: req.profile._id },
     { $set: req.body },
     { new: true }, // this updates the values of the user
-    (err, user) => {
-      if (err) {
+    (error, user) => {
+      if (error) {
         res.json({
           error: "You're not authorized to do this action!",
         });

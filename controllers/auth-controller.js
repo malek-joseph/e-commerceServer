@@ -7,11 +7,11 @@ exports.signup = (req, res) => {
   console.log("req.body", req.body);
   const user = new User(req.body);
   // then we save the user in the dB, but sending a callback function as an argument, because the function we want to pass, has already arguments in them, so they must be written with parenthesis, which casues the original function to fire immediately, while we want it to fire at a certain time, and we handle this by passing the callback function in an arrow function
-  user.save((err, user) => {
-    if (err) {
-      console.log(err);
+  user.save((error, user) => {
+    if (error) {
+      console.log(error);
       return res.status(400).json({
-         err: errorHandler(err)
+        error: errorHandler(error)
       })
     }
     // we set those values to undefined to avoid them send with the response
@@ -27,10 +27,10 @@ exports.signup = (req, res) => {
 exports.signin = (req, res, next) => {
   // 1st we try to find the user using the email 
   const { email, password } = req.body
-  User.findOne({ email: email }, (err, user) => {
-    if (err || !user) {
+  User.findOne({ email: email }, (error, user) => {
+    if (error || !user) {
       return res.status(400).json({
-        err: "email doesn't exist, please try signup",
+        error: "email doesn't exist, please try signup",
       });
     }
     // If we found a user, we wanna make sure the email and the password match
